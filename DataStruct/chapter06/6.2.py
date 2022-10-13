@@ -54,7 +54,9 @@ def checkBrackets(statement):
                 return False
             else:
                 left = stack.pop()
-                if(ch == '}' and left !='{') or (ch == ']' and left != '[') or (ch == ')' and left != '('):
+                if(ch == '}' and left != '{') or\
+                  (ch == ']' and left != '[') or\
+                  (ch == ')' and left != '('):
                     return False
         return stack.isEmpty()
 
