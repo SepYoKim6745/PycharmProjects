@@ -25,7 +25,7 @@ class LinkedStack:
             return n.data
 
     def peek(self):
-        if not self.isEmpty():
+        if self.isEmpty():
             return self.top.data
 
     def size(self):
@@ -36,7 +36,7 @@ class LinkedStack:
             count += 1
         return count
 
-    def display(self, msg='LinkedStack'):
+    def display(self, msg="LinkedStack: "):
         print(msg, end='')
         node = self.top
         while not node == None:
@@ -44,56 +44,27 @@ class LinkedStack:
             node = node.link
         print()
 
-def checkBrackets(statement):
+
+def checkBrackets(lines):
     stack = LinkedStack()
-    for ch in statement:
-        if ch in ('{', '[', '('):
-            stack.push(ch)
-        elif ch in ('}', ']', ')'):
-            if stack.isEmpty():
-                return False
-            else:
-                left = stack.pop()
-                if(ch == '}' and left != '{') or\
-                  (ch == ']' and left != '[') or\
-                  (ch == ')' and left != '('):
+    for line in lines:
+        for ch in line:
+            if ch in ('{', '[', '('):
+                stack.push(ch)
+            elif ch in ('}', ']', ')'):
+                if stack.isEmpty():
                     return False
-        return stack.isEmpty()
+                else:
+                    left = stack.pop()
+                    if (ch == '}' and left != '{') or (ch == ']' and left != '[') or (ch == ')' and left != '('):
+                        return False
+    return stack.isEmpty()
 
-if __name__ == '__main__':
-    str = ("{ A[(i+1)] = 0;", "if( ( i == 0) && (j == 0)", "A[(i+1]) = 0;")
-    for s in str:
-        m = checkBrackets(s)
-        print(s, '--->', m)
+filename = "LinkedStack.h"
+infile = open(filename, 'r')
+lines = infile.readlines()
+infile.close
 
+result = checkBrackets(lines)
+print(filename, ' ---> ', result)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # odd = LinkedStack()
-    # even = LinkedStack()
-    # for i in range(10):
-    #     if i % 2 == 0:
-    #         even.push(i)
-    #     else:
-    #         odd.push(i)
-    # even.display('LinkedStack_Even : ')
-    # odd.display('LinkedStack_Odd : ')
-    # print('스택 even peek :', even.peek())
-    # print('스택 odd peek :', odd.peek())
-    #
-    # for _ in range(2): even.pop()
-    # for _ in range(3): odd.pop()
-    # even.display('LinkedStack_Even : ')
-    # odd.display('LinkedStack_Odd : ')
