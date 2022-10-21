@@ -97,12 +97,26 @@ class Polynomial(LinkedList):
                     addNode.insert(0,temp1.data + temp2.data)
                     temp1 = temp1.link
                     temp2 = temp2.link
-            elif self.high < newNode.high: #여기 작성할 차례
-                print('cooming')
-        addNode.display()
+            elif self.high < newNode.high:
+                if temp1 == None:
+                    addNode.insert(0, temp2.data)
+                    temp2 = temp2.link
+                else:
+                    addNode.insert(0, temp1.data + temp2.data)
+                    temp1 = temp1.link
+                    temp2 = temp2.link
+            else:
+                addNode.insert(0, temp1.data + temp2.data)
+                temp1 = temp1.link
+                temp2 = temp2.link
+        return addNode
+
 a = Polynomial()
 b = Polynomial()
 c = a.add(b)
+a.display() #display 할 차례
+b.display()
+c.display()
 # s = LinkedList()
 # s.display('단순연결리스트로 구현한 리스트(초기상태): ')
 # s.insert(0, 10); s.insert(0, 20); s.insert(1,30); s.insert(s.size(), 40); s.insert(2, 50)
