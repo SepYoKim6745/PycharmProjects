@@ -114,9 +114,9 @@ class Polynomial(LinkedList):
 a = Polynomial()
 b = Polynomial()
 c = a.add(b)
-a.display() #display 할 차례
-b.display()
-c.display()
+#a.display() #display 할 차례
+#b.display()
+#c.display()
 # s = LinkedList()
 # s.display('단순연결리스트로 구현한 리스트(초기상태): ')
 # s.insert(0, 10); s.insert(0, 20); s.insert(1,30); s.insert(s.size(), 40); s.insert(2, 50)
