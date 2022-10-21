@@ -1,9 +1,10 @@
-import copy
 class Node:
     def __init__(self, elem, link=None):
         self.data = elem
         self.link = link
 
+    def __str__(self):
+        return str(self.data)
 
 class LinkedList:
     def __init__(self):
@@ -12,6 +13,8 @@ class LinkedList:
     def isEmpty(self):
         return self.head == None
 
+    def __str__(self):
+        return str(self.head)
     def clear(self):
         self.head = None
 
@@ -75,29 +78,28 @@ class LinkedList:
             before.link = before.link.link
 
 
-class Polynomial():
+class Polynomial(LinkedList):
     def __init__(self):
         self.node = LinkedList()
         self.high = int(input('다항식의 최고 차수를 입력하시오: '))
         for i in range(self.high, -1, -1):
             self.node.insert(0, int(input('x^{}의 계수 : '.format(i))))
-
     def add(self, newNode):
-        if self.high > newNode.high:
-            node = copy.deepcopy(self.node)
-            while newNode is not None:
-                node.data += newNode.data
-                node = node.link
-                newNode = newNode.link
-        else:
-            node = copy.deepcopy(newNode)
-            while newNode is not None:
-                node.data += newNode.data
-                node = node.link
-                newNode = newNode.link
-
-        return node
-
+        addNode = LinkedList()
+        temp1 = self.node.head
+        temp2 = newNode.node.head
+        while (temp1 != None) and (temp2 != None):
+            if self.high > newNode.high:
+                if temp2 == None: #여기가 문제다.. 자꾸 인식을 못함
+                    addNode.insert(0,temp1.data)
+                    temp1 = temp1.link
+                addNode.insert(0,temp1.data + temp2.data)
+                print(temp1, temp2)
+            elif self.high < newNode.high:
+                print('cooming')
+            temp1 = temp1.link
+            temp2 = temp2.link
+        addNode.display()
 a = Polynomial()
 b = Polynomial()
 c = a.add(b)
