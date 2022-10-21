@@ -88,17 +88,17 @@ class Polynomial(LinkedList):
         addNode = LinkedList()
         temp1 = self.node.head
         temp2 = newNode.node.head
-        while (temp1 != None) and (temp2 != None):
+        while (temp1 != None) or (temp2 != None):
             if self.high > newNode.high:
-                if temp2 == None: #여기가 문제다.. 자꾸 인식을 못함
+                if temp2 == None:
                     addNode.insert(0,temp1.data)
                     temp1 = temp1.link
-                addNode.insert(0,temp1.data + temp2.data)
-                print(temp1, temp2)
-            elif self.high < newNode.high:
+                else:
+                    addNode.insert(0,temp1.data + temp2.data)
+                    temp1 = temp1.link
+                    temp2 = temp2.link
+            elif self.high < newNode.high: #여기 작성할 차례
                 print('cooming')
-            temp1 = temp1.link
-            temp2 = temp2.link
         addNode.display()
 a = Polynomial()
 b = Polynomial()
