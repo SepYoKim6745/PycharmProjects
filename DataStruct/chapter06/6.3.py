@@ -1,3 +1,4 @@
+#실패
 class Node:
     def __init__(self, elem, link=None):
         self.data = elem
@@ -5,6 +6,7 @@ class Node:
 
     def __str__(self):
         return str(self.data)
+
 
 class LinkedList:
     def __init__(self):
@@ -15,24 +17,29 @@ class LinkedList:
 
     def __str__(self):
         return str(self.head)
+
     def clear(self):
         self.head = None
 
     def size(self):
         node = self.head
         count = 0
-        while node == None:
+        while node != None:
             node = node.link
             count += 1
         return count
 
     def display(self, msg="LinkedStack: "):
+        x = self.size()-1
         print(msg, end='')
         node = self.head
         while not node == None:
-            print(node.data, end='->')
+            print('{}x^{}'.format(float(node.data), x), end='')
+            if node.link != None:
+                print(' + ', end='')
+            x -= 1
             node = node.link
-        print('None')
+        print()
 
     def getNode(self, pos):
         if pos < 0: return None
@@ -78,23 +85,26 @@ class LinkedList:
             before.link = before.link.link
 
 
-class Polynomial(LinkedList):
+class Polynomial:
     def __init__(self):
         self.node = LinkedList()
         self.high = int(input('다항식의 최고 차수를 입력하시오: '))
         for i in range(self.high, -1, -1):
             self.node.insert(0, int(input('x^{}의 계수 : '.format(i))))
+
     def add(self, newNode):
         addNode = LinkedList()
         temp1 = self.node.head
         temp2 = newNode.node.head
+
         while (temp1 != None) or (temp2 != None):
             if self.high > newNode.high:
                 if temp2 == None:
-                    addNode.insert(0,temp1.data)
+                    addNode.insert(0, temp1.data)
                     temp1 = temp1.link
+                    print(addNode.size())
                 else:
-                    addNode.insert(0,temp1.data + temp2.data)
+                    addNode.insert(0, temp1.data + temp2.data)
                     temp1 = temp1.link
                     temp2 = temp2.link
             elif self.high < newNode.high:
@@ -111,19 +121,64 @@ class Polynomial(LinkedList):
                 temp2 = temp2.link
         return addNode
 
+    def sub(self, newNode):
+        subNode = LinkedList()
+        temp1 = self.node.head
+        temp2 = newNode.node.head
+        while (temp1 != None) or (temp2 != None):
+            if self.high > newNode.high:
+                if temp2 == None:
+                    subNode.insert(0, temp1.data)
+                    temp1 = temp1.link
+                else:
+                    subNode.insert(0, temp1.data - temp2.data)
+                    temp1 = temp1.link
+                    temp2 = temp2.link
+            elif self.high < newNode.high:
+                if temp1 == None:
+                    subNode.insert(0, temp2.data)
+                    temp2 = temp2.link
+                else:
+                    subNode.insert(0, temp1.data - temp2.data)
+                    temp1 = temp1.link
+                    temp2 = temp2.link
+            else:
+                subNode.insert(0, temp1.data - temp2.data)
+                temp1 = temp1.link
+                temp2 = temp2.link
+        return subNode
+
+    def multiply(self, newNode):
+        multiplyNode = LinkedList()
+        temp1 = self.node.head
+        temp2 = newNode.node.head
+
+    def display(self, msg='LinkedList'):
+        x = 0
+        print(msg, end='')
+        node = self.node.head
+        while not node == None:
+            print('{}x^{}'.format(float(node.data), x), end='')
+            if node.link != None:
+                print(' + ', end='')
+            x += 1
+            node = node.link
+        print()
+
+    def size(self):
+        node = self.node.head
+        count = 0
+        while node != None:
+            print('-')
+            node = node.link
+            count += 1
+        return count
+
+
 a = Polynomial()
 b = Polynomial()
 c = a.add(b)
-#a.display() #display 할 차례
-#b.display()
-#c.display()
-# s = LinkedList()
-# s.display('단순연결리스트로 구현한 리스트(초기상태): ')
-# s.insert(0, 10); s.insert(0, 20); s.insert(1,30); s.insert(s.size(), 40); s.insert(2, 50)
-# s.display('단순연결리스트로 구현한 리스트(삽입x5): ')
-# s.replace(2, 90)
-# s.display(('단순연결리스트로 구현한 리스트 (교체x1): '))
-# s.delete(2); s.delete(s.size()-1); s.delete(0)
-# s.display('단순연결리스트로 구현한 리스트(삭제x3): ')
-# s.clear()
-# s.display('단순연결리스트로 구현한 리스트 (정리후): ')
+a.display('a: ')  # display 할 차례
+b.display('b: ')
+c.display('add: ')
+
